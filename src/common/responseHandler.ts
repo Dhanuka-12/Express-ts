@@ -8,5 +8,11 @@ export const successResponse = (code:HttpStatus, response:Response,data:any, alr
 }
 
 export const errorResponse = (code:HttpStatus, response:Response, error:IError) => {
-    response.status(code).json({ error });
+    const errorContent = {
+        code,
+        key: error.key,
+        message: error.message
+    }
+    response.status(code).json({ error: errorContent });
+
 }
