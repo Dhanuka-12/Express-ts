@@ -1,8 +1,10 @@
+import { ERRORS } from "../common/constants/errors.constants";
 import { IUser } from "../interface/models/user.interface";
 import { User } from "../models/user.model";
 
 export class UserDAO {
     private static instance:UserDAO;
+    static getUserByEmail: any;
     public static getInstance():UserDAO {
         if (!UserDAO.instance) {
             UserDAO.instance = new UserDAO();
@@ -18,6 +20,19 @@ export class UserDAO {
             throw new Error(error);
         }
 
+    }
+
+    public async getUserByEmail(email: string): Promise<IUser> {
+        try{
+            const user = await User.findOne({ email });
+            if(!user){
+                throw new Error(ERRORS.USER_NOT_FOUND.key);
+            }
+
+            return user;
+        }catch(error:any){
+            throw error;
+        } 
     }
 
 }

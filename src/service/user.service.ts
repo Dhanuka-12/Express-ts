@@ -24,4 +24,14 @@ export class UserService {
         }
 
     }
+
+
+    public async getUserByEmail(email:string):Promise<IUser> {
+        try{
+            const user = await this.userDAO.getUserByEmail(email);
+            return user;
+        }catch(error:any){
+            throw error;
+        }
+    }
 }

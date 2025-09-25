@@ -22,5 +22,6 @@ export class UserRoute{
 
     private setupRoutes(){
         this.router.post("/",this.userController.createUser);
+        this.router.get("/:email",this.userController.getUserByEmail);
     }
 } 

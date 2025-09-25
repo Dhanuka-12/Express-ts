@@ -27,4 +27,17 @@ export class UserController{
             errorResponse(HttpStatus.INTERNAL_SERVER_ERROR, res, ERRORS.BAD_REQUEST);
         }
     }
+
+    getUserByEmail = async (req:Request, res:Response) => {
+        try{
+            const {email} = req.params;
+            const user = await this.userService.getUserByEmail(email);
+            return successResponse(HttpStatus.OK, res, user);
+        }catch(error:any){
+            if(error.message === ERRORS.USER_NOT_FOUND.key){
+                return errorResponse(HttpStatus.NOT_FOUND, res, ERRORS.USER_NOT_FOUND);
+            }
+            return errorResponse(HttpStatus.INTERNAL_SERVER_ERROR, res, ERRORS.BAD_REQUEST);
+        }
+    }
 }
